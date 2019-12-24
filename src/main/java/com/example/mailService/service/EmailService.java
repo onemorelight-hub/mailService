@@ -7,5 +7,5 @@ import com.example.mailService.model.MailInfo;
 @Service
 public interface EmailService {
 
-	public void sendMail(MailInfo mailInfo);
+	public boolean sendMail(MailInfo mailInfo);
 }

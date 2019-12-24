@@ -18,7 +18,6 @@ public class MailController {
 	
 	@PostMapping ("/sendVerificationMail")
 	public boolean sendVerificationMail(@RequestBody MailInfo mailInfo) {
-		emailService.sendMail(mailInfo);
-		return true;
+		return emailService.sendMail(mailInfo);
 	}
 }

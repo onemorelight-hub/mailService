@@ -18,16 +18,20 @@ public class EmailServiceImpl implements EmailService{
 	private String senderName;
 	
 	@Override
-	public void sendMail(MailInfo mailInfo) {
-		SimpleMailMessage msg = new SimpleMailMessage();
-		
-		String message = "Dear "+mailInfo.getReceiverName() + ",\n\n" + mailInfo.getMessage() + "\n\nRegards,\n\n" +senderName;
-		msg.setSubject(mailInfo.getSubject());
-		msg.setTo(mailInfo.getReceiverList());
-		msg.setCc(mailInfo.getReceiverInCc());
-		msg.setBcc(mailInfo.getReceiverInBcc());
-		msg.setText(message);
-		javaMailSender.send(msg);
+	public boolean sendMail(MailInfo mailInfo) {
+		boolean status = true;
+		try {
+			SimpleMailMessage msg = new SimpleMailMessage();	
+			String message = "Dear "+mailInfo.getReceiverName() + ",\n\n" + mailInfo.getMessage() + "\n\nRegards,\n\n" +senderName;
+			msg.setSubject(mailInfo.getSubject());
+			msg.setTo(mailInfo.getReceiverList());
+			msg.setCc(mailInfo.getReceiverInCc());
+			msg.setBcc(mailInfo.getReceiverInBcc());
+			msg.setText(message);
+			javaMailSender.send(msg);
+		}catch(Exception e) {
+			status = false;
+		}
+		return status;
 	}
-	
 }
