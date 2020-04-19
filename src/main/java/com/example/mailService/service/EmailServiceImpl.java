@@ -30,6 +30,7 @@ public class EmailServiceImpl implements EmailService{
 			msg.setText(message);
 			javaMailSender.send(msg);
 		}catch(Exception e) {
+			System.out.println("Exception occured while sending mail: "+e);
 			status = false;
 		}
 		return status;

@@ -1,6 +1,11 @@
 package com.example.mailService.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +21,15 @@ public class MailController {
 	@Autowired
 	private EmailService emailService;
 	
+	@SuppressWarnings("rawtypes")
 	@PostMapping ("/sendVerificationMail")
-	public boolean sendVerificationMail(@RequestBody MailInfo mailInfo) {
-		return emailService.sendMail(mailInfo);
+	public ResponseEntity sendVerificationMail(@RequestBody MailInfo mailInfo) {
+		Map<String, Object> object = new HashMap<>();
+		if(emailService.sendMail(mailInfo)) {
+			object.put("message", "sucessed");
+			return ResponseEntity.status(HttpStatus.OK).body(object);
+		}
+		object.put("message", "Failed");
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(object);
 	}
 }

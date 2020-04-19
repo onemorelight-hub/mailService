@@ -1,6 +1,10 @@
 package com.example.mailService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonIgnoreProperties
+@JsonSerialize
 public class MailInfo {
 
 	private String subject;
